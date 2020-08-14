@@ -18,6 +18,7 @@ const pAequorFactory = (specimenNum, dna) => {
   return {
     specimenNum: specimenNum,
     dna: dna,
+    // Replaces a random base with another base
     mutate() {
       const randBase = Math.floor(Math.random()*this.dna.length);
       console.log('RandBase: ' + randBase);
@@ -28,8 +29,16 @@ const pAequorFactory = (specimenNum, dna) => {
       dna[randBase] = newBase;
       console.log('newBase at index ' + randBase + ': ' + newBase);
     },
-    compareDNA() {
-      
+    // Logs the percentage that the DNA of two objects have in common
+    compareDNA(otherP) {
+      let count = 0;
+      for (var i = 0; i < dna.length; i++) {
+        if (dna[i] === otherP.dna[i]) {
+          count++;
+        }
+      }
+      const percentage = (100*count/dna.length).toFixed();
+      console.log(`Specimen #${specimenNum} and specimen #${otherP.specimenNum} has ${percentage}% DNA in common`);
     }
   }
 }
@@ -39,3 +48,6 @@ console.log(pAequor.dna);
 console.log('Mutating...');
 pAequor.mutate();
 console.log(pAequor.dna);
+
+let p2 = pAequorFactory(2, mockUpStrand());
+pAequor.compareDNA(p2);
